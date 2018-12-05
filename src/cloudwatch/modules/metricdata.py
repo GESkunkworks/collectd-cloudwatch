@@ -177,6 +177,7 @@ class MetricDataBuilder(object):
         output = self.execute_command(commandlist)
         total = "".join(output.stdout.readlines())
         j = json.loads(total)
+        privateIp = str(j.get("privateIp"))
         return j
 
     def execute_command(self, commandlist):
