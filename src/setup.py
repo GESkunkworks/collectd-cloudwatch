@@ -308,6 +308,7 @@ class PluginConfig(object):
         self.debug = False
         self.pass_through = False
         self.credentials_file_exist = False
+        self.dimensions_file_exist = False
         self.proxy_server_name = proxy_server_name
         self.proxy_server_port = proxy_server_port
         self.enable_high_resolution_metrics = enable_high_resolution_metrics
@@ -371,6 +372,7 @@ class InteractiveConfigurator(object):
             self._configure_proxy_server_name()
             self._configure_proxy_server_port()
             self._configure_push_asg()
+            self._configure_dimensions_path()
             self._configure_push_constant()
             self._configure_enable_high_resolution_metrics()
             self._configure_flush_interval_in_seconds()
@@ -383,6 +385,22 @@ class InteractiveConfigurator(object):
                 print(Color.green("Dimensions File written successfully."))
         except IOError as e:
             raise InstallationFailedException("Could not write dimensions file. Cause: {}".format(str(e)))
+
+    def _get_dimensions_path(self):
+        recommended_path = DEFAULT_DIMENSIONS_FILE
+        dims_path = ""
+        while not path.isabs(dims_path):
+                dims_path = Prompt(
+                    message="\nEnter absolute path to Dimensions file [" + Color.green(recommended_path) + "]: ",
+                    default=recommended_path).run()
+        return dims_path
+
+    def _configure_dimensions_path(self):
+        self.config.dimensions_path = self._get_dimensions_path()
+        self.config.dimensions_file_exist = path.exists(self.config.dimensions_path)
+        if not self.config.dimensions_file_exist:
+            print(Color.red("Dimensions file path doesn't exist please renter the correct path: \n"))
+            self._configure_dimensions_path()
 
     def _configure_push_asg_non_interactive(self):
         if self.push_asg:
@@ -758,7 +776,7 @@ def main():
     COLLECTD_INFO = get_collectd_info()
     STOP_COLLECTD_CMD = CMD("pkill collectd", "Stopping collectd process")
     START_COLLECTD_CMD = CMD(COLLECTD_INFO.exec_path, "Starting collectd process")
-    DOWNLOAD_PLUGIN_CMD = CMD("curl -sL https://github.com/GESkunkworks/collectd-cloudwatch/tarball/feature/addDimensions > " + TAR_FILE, "Downloading plugin")
+    DOWNLOAD_PLUGIN_CMD = CMD("curl -sL https://github.com/GESkunkworks/collectd-cloudwatch/tarball/feature/addDimensionFile > " + TAR_FILE, "Downloading plugin")
     UNTAR_PLUGIN_CMD = CMD("tar zxf " + TAR_FILE, "Extracting plugin")
     COPY_CMD = "\cp -rf {source} {target}"
     COPY_PLUGIN_CMD = CMD(COPY_CMD.format(source=NEW_PLUGIN_FILES, target=CollectdInfo.PLUGINS_DIR), "Moving to collectd plugins directory")
