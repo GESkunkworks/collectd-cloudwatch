@@ -118,7 +118,6 @@ class ConfigHelper(object):
 
     def _get_dimensions_path(self):
         dimensions_path = self.config_reader.dimensions_path
-        self._LOGGER.info("Dimensions Path: ", dimensions_path)
         if not self.config_reader.dimensions_path:
             dimensions_path = self._DEFAULT_DIMENSIONS_PATH
         return dimensions_path
@@ -129,7 +128,6 @@ class ConfigHelper(object):
         or does not contain uncommented dimensions, then default dimensions are used.
         """
         self.dimensions = self.dimensions_reader.dimensions
-        self._LOGGER.info("Dimensions: ", self.dimensions)
         if not self.dimensions:
             self.dimensions = None
         
