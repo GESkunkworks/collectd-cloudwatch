@@ -79,6 +79,7 @@ class ConfigHelper(object):
         self.metadata_reader = MetadataReader(self._metadata_server)
         self.dimensions_reader = DimensionsReader(self._get_dimensions_path())
         self._load_credentials()
+        self._load_dimensions()
         self._load_region()
         self._load_hostname()
         self._load_proxy_server_name()
@@ -121,6 +122,16 @@ class ConfigHelper(object):
         if not self.config_reader.dimensions_path:
             dimensions_path = self._DEFAULT_DIMENSIONS_PATH
         return dimensions_path
+
+    def _load_dimensions(self):
+        """
+        Tries to load dimensions based on the path to the file given in the plugin configuration file. If such file does not exist
+        or does not contain uncommented dimensions, then default dimensions are used.
+        """
+        self.dimensions = self.dimensions_reader.dimensions
+        self._LOGGER.info("Dimensions: ", self.dimensions)
+        if not self.dimensions:
+            self.dimensions = None
         
     def _load_region(self):
         """
