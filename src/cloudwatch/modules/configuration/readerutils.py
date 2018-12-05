@@ -17,6 +17,9 @@ class ReaderUtils(object):
     
     def get_string(self, key):
         return self._find_value_by_key(key)
+
+    def get_dimensions(self):
+        return self._find_dimensions()
     
     def get_boolean(self, key):
         value = self._find_value_by_key(key)
@@ -46,6 +49,19 @@ class ReaderUtils(object):
                 self._LOGGER.error("Cannot read configuration entry: " + str(entry))
                 raise ValueError("Invalid syntax for entry '" + entry + "'.")
         return ""
+
+    def _find_dimensions(self):
+        config_list = self._load_config_as_list(self.path)
+        dimensions_list = []
+        for entry in config_list:
+            if not entry or entry[0] == self._COMMENT_CHARACTER or self._AWS_PROFILE_PATTERN.match(entry):
+                continue # skip empty and commented lines
+            try:
+                dimensions_list.append(entry)
+            except:
+                self._LOGGER.error("Cannot read configuration entry: " + str(entry))
+                raise ValueError("Invalid syntax for dimension entry '" + entry + "'.")
+        return dimensions_list
     
     def _strip_quotes(self, string):
         return re.sub(r"^'|'$|^\"|\"$", '', string)
