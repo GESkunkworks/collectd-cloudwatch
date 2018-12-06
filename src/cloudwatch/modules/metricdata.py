@@ -183,7 +183,6 @@ class MetricDataBuilder(object):
             self._LOGGER.info("Running command: %s \n", commandlist)
             output = subprocess.Popen(commandlist, stdout=subprocess.PIPE)
             stdout, stderr = output.communicate()
-            print(stdout)
             return(stdout)
         except Exception as e:
             msg = "Exception calling command: '%s' , Exception: %s" % (
