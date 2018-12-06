@@ -174,14 +174,16 @@ class MetricDataBuilder(object):
         ## we recommend retrieving the instance identity document and signature regularly.
         commandlist = "curl -s http://169.254.169.254/latest/dynamic/instance-identity/document".split()
         output = self.execute_command(commandlist)
-        total = "".join(output.readlines())
+        total = "".join(output.stdout.readlines())
         j = json.loads(total)
         return j
 
     def execute_command(self, commandlist):
         try:
-            self._LOGGER.info("Running command: \n", commandlist)
+            self._LOGGER.info("Running command: %s \n", commandlist)
             output = subprocess.Popen(commandlist, stdout=subprocess.PIPE)
+            stdout, stderr = output.communicate()
+            self._LOGGER.info("Output: %s ", stdout , " Error: %s \n", stderr) 
             return(output)
         except Exception as e:
             msg = "Exception calling command: '%s' , Exception: %s" % (
