@@ -180,10 +180,8 @@ class MetricDataBuilder(object):
 
     def execute_command(self, commandlist):
         try:
-            self._LOGGER.info("Running command: %s \n", commandlist)
-            output = subprocess.Popen(commandlist, stdout=subprocess.PIPE)
-            stdout, stderr = output.communicate()
-            return(stdout)
+            output = subprocess.check_output(commandlist)
+            return(output)
         except Exception as e:
             msg = "Exception calling command: '%s' , Exception: %s" % (
                 commandlist, str(e))
