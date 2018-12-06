@@ -130,7 +130,7 @@ class MetricDataBuilder(object):
         dimensions = {}
         metadata = self._get_metadata()
         if self.vl.dimensions:
-            for dim in self.vl.dimensions:
+            for dim in self.vl.plugin_instance:
                 if dim.lower() == 'host':
                     dimensions["Host"] = self._get_host_dimension()
                 elif dim.lower() == 'plugininstance':
