@@ -127,15 +127,30 @@ class MetricDataBuilder(object):
         return dimensions
 
     def _build_metric_dimensions(self):
-        dimensions = {
-                "Host" : self._get_host_dimension(),
-                "PluginInstance" : self._get_plugin_instance_dimension()
-                }
-        if self.config.push_asg:
-            dimensions["AutoScalingGroup"] = self._get_autoscaling_group()
-        if self.config.push_constant:
-            dimensions["FixedDimension"] = self.config.constant_dimension_value
-        return dimensions
+        dimensions = {}
+        metadata = self._get_metadata()
+        if self.vl.dimensions:
+            for dim in self.vl.dimensions:
+                if dim.lower() == 'host':
+                    dimensions["Host"] = self._get_host_dimension()
+                elif dim.lower() == 'plugininstance':
+                    dimensions["PluginInstance"] = self._get_plugin_instance_dimension()
+                else:
+                    dimensions[dim] = str(metadata.get(dim))
+                    self._LOGGER.info("Dimension: ", dim, " Dimensions value: \n", str(metadata.get(dim)))
+            if self.config.push_asg:
+                dimensions["AutoScalingGroup"] = self._get_autoscaling_group()
+            if self.config.push_constant:
+                dimensions["FixedDimension"] = self.config.constant_dimension_value
+        else:
+            dimensions = {
+                    "Host" : self._get_host_dimension(),
+                    "PluginInstance" : self._get_plugin_instance_dimension(),
+                    }
+            if self.config.push_asg:
+                dimensions["AutoScalingGroup"] = self._get_autoscaling_group()
+            if self.config.push_constant:
+                dimensions["FixedDimension"] = self.config.constant_dimension_value
 
     def _get_plugin_instance_dimension(self):
         if self.vl.plugin_instance:
