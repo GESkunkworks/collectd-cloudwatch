@@ -174,7 +174,7 @@ class MetricDataBuilder(object):
         ## we recommend retrieving the instance identity document and signature regularly.
         commandlist = "curl -s http://169.254.169.254/latest/dynamic/instance-identity/document".split()
         output = self.execute_command(commandlist)
-        total = "".join(output.stdout.readlines())
+        total = "".join(output.readlines())
         j = json.loads(total)
         return j
 
