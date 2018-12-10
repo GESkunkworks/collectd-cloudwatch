@@ -136,8 +136,8 @@ class MetricDataBuilder(object):
                 elif dim.lower() == 'plugininstance':
                     dimensions["PluginInstance"] = self._get_plugin_instance_dimension()
                 else:
-                    dimensions[dim[:1].lower() + dim[1:]] = str(metadata.get(dim))
-                    self._LOGGER.info("Dimension: " + dim + " Dimensions value: " + str(metadata.get(dim)))
+                    dimensions[dim] = str(metadata.get(dim[:1].lower() + dim[1:]))
+                    self._LOGGER.info("Dimension: " + dim + " Dimensions value: " + str(metadata.get(dim[:1].lower() + dim[1:])))
             if self.config.push_asg:
                 dimensions["AutoScalingGroup"] = self._get_autoscaling_group()
             if self.config.push_constant:
