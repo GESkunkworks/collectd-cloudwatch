@@ -21,7 +21,7 @@ class DimensionsReader(object):
         self.dimensions = None
         try:
             self.reader_utils = ReaderUtils(dimensions_path)
-            self._parse_dimensions_file()
+            return self._parse_dimensions_file()
         except (DimensionsReaderException or ValueError) as e:
             raise DimensionsReaderException(e)
         except Exception as e:
@@ -35,7 +35,7 @@ class DimensionsReader(object):
         dimensions_list = self.reader_utils.get_dimensions()
         if not dimensions_list:
             raise DimensionsReaderException("Didn't read any dimensions in the dimensions file. Please check file.")
-        self.dimensions = dimensions_list
+        return self.dimensions = dimensions_list
         
 class DimensionsReaderException(Exception):
     pass
