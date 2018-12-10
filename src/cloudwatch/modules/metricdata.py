@@ -134,7 +134,7 @@ class MetricDataBuilder(object):
                 if dim.lower() == 'host':
                     dimensions["Host"] = self._get_host_dimension()
                 elif dim.lower() == 'plugininstance':
-                    dimensions["PluginInstance"] = self._get_plugin_instance_dimension()
+                    dimensions[dim] = self._get_plugin_instance_dimension()
                 else:
                     dimensions[dim] = str(metadata.get(dim[:1].lower() + dim[1:]))
                     self._LOGGER.info("Dimension: " + dim + " Dimensions value: " + str(metadata.get(dim[:1].lower() + dim[1:])))
