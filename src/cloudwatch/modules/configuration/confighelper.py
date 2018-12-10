@@ -127,7 +127,7 @@ class ConfigHelper(object):
         Tries to load dimensions based on the path to the file given in the plugin configuration file. If such file does not exist
         or does not contain uncommented dimensions, then default dimensions are used.
         """
-        self.dimensions = self.dimensions_reader
+        self.dimensions = self.dimensions_reader.dimensions
         if not self.dimensions:
             self.dimensions = None
         
