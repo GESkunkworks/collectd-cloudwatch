@@ -66,7 +66,6 @@ class Flusher(object):
                 host=value_list.host,
                 plugin=value_list.plugin,
                 plugin_instance=value_list.plugin_instance,
-                dimensions=value_list.dimensions,
                 type=value_list.type,
                 type_instance=value_list.type_instance + '.{}'.format(ds_name) if value_list.type_instance else ds_name,
                 time=value_list.time,
