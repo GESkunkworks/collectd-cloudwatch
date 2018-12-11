@@ -56,6 +56,7 @@ class ReaderUtils(object):
         dimensions_list = []
         for entry in config_list:
             if not entry or entry[0] == self._COMMENT_CHARACTER or self._NONDIMENSIONS_PATTERN.match(entry):
+                self._LOGGER.info("Entry Value: " + str(entry))
                 continue # skip empty and commented lines
             try:
                 self._LOGGER.info("Entry Value: " + str(entry))
