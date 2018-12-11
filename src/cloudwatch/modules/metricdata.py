@@ -3,6 +3,7 @@ import plugininfo
 import datetime
 import json 
 import subprocess
+import urllib2
 from logger.logger import get_logger
 
 class MetricDataStatistic(object):
@@ -173,17 +174,19 @@ class MetricDataBuilder(object):
             ## http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-identity-documents.html
 	        ## Due to the dynamic nature of instance identity documents and signatures,
         ## we recommend retrieving the instance identity document and signature regularly.
-        commandlist = "curl -s http://169.254.169.254/latest/dynamic/instance-identity/document".split()
-        output = self.execute_command(commandlist)
-        total = "".join(output)
-        j = json.loads(total)
-        return j
+        dimensionsList = []
+        url = "http://169.254.169.254/latest/dynamic/instance-identity/document"
 
-    def execute_command(self, commandlist):
+        req = urllib2.Request(url)
         try:
-            output = subprocess.check_output(commandlist)
-            return(output)
-        except Exception as e:
-            msg = "Exception calling command: '%s' , Exception: %s" % (
-                commandlist, str(e))
-            return(msg)
+            response = urllib2.urlopen(req)
+        except urllib2.URLError as e:
+            if hasattr(e, 'reason'):
+                self._LOGGER.error("We failed to reach a server. Reason: " + e.reason)
+            elif hasattr(e, 'code'):
+                self._LOGGER.error("The server couldn't fulfill the request. Error code: " + e.code)
+        for line in response:
+            dimensionsList.append(line.rstrip())
+        output = "".join(dimensionsList)
+        instanceDimensions = json.loads(output)
+        return instanceDimensions

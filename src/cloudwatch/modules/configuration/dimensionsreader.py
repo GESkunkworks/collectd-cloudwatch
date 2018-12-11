@@ -30,7 +30,7 @@ class DimensionsReader(object):
     def _parse_dimensions_file(self):
         """ 
         This method retrieves values form preprocessed configuration list 
-        in format ['key=value', 'key2=value2'] 
+        in format ['value', 'value2'] 
         """
         dimensions_list = self.reader_utils.get_dimensions()
         if not dimensions_list:
