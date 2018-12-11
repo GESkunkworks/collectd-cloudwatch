@@ -130,7 +130,7 @@ class MetricDataBuilder(object):
     def _build_metric_dimensions(self):
         dimensions = {}
         metadata = self._get_metadata()
-        if self.config.dimensions:
+        if len(self.config.dimensions) != 0:
             for dim in self.config.dimensions:
                 if dim.lower() == 'host':
                     dimensions["Host"] = self._get_host_dimension()
