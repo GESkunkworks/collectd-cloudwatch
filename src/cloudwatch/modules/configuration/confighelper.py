@@ -118,6 +118,7 @@ class ConfigHelper(object):
 
     def _get_dimensions_path(self):
         dimensions_path = self.config_reader.dimensions_path
+        self._LOGGER.info("Dimensions Path: " + str(dimensions_path))
         if not self.config_reader.dimensions_path:
             dimensions_path = self._DEFAULT_DIMENSIONS_PATH
         return dimensions_path
