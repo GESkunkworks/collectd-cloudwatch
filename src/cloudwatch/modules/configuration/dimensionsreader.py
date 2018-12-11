@@ -22,19 +22,19 @@ class DimensionsReader(object):
         try:
             self.reader_utils = ReaderUtils(dimensions_path)
             self._parse_dimensions_file()
-        except (DimensionsReaderException or ValueError) as e:
-            raise DimensionsReaderException(e)
         except Exception as e:
             self._LOGGER.warning("Cannot read AWS dimensions from file. Defaulting to default dimensions.")
 
     def _parse_dimensions_file(self):
         """ 
         This method retrieves values form preprocessed configuration list 
-        in format ['value', 'value2'] 
+        in format: 
+        value 
+        value2 
         """
         dimensions_list = self.reader_utils.get_dimensions()
         if not dimensions_list:
-            raise DimensionsReaderException("Didn't read any dimensions in the dimensions file. Please check file.")
+            self._LOGGER.warning("Cannot read AWS dimensions from file. Defaulting to default dimensions.")
         self.dimensions = dimensions_list
   
 class DimensionsReaderException(Exception):
