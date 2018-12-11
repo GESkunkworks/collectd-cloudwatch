@@ -9,6 +9,7 @@ class ReaderUtils(object):
     _LOGGER = get_logger(__name__)
     _COMMENT_CHARACTER = '#'
     _AWS_PROFILE_PATTERN = re.compile("^\s*\[[\w]+\]\s*$")
+    _NONDIMENSIONS_PATTERN = re.compile("^\s*")
     
     def __init__(self, path):
         self.path = path
@@ -54,7 +55,7 @@ class ReaderUtils(object):
         config_list = self._load_config_as_list(self.path)
         dimensions_list = []
         for entry in config_list:
-            if not entry or entry[0] == self._COMMENT_CHARACTER or self._AWS_PROFILE_PATTERN.match(entry):
+            if not entry or entry[0] == self._COMMENT_CHARACTER or self._NONDIMENSIONS_PATTERN.match(entry):
                 continue # skip empty and commented lines
             try:
                 dimensions_list.append(entry)
