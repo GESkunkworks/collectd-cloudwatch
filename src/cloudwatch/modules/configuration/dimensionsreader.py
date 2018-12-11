@@ -33,7 +33,7 @@ class DimensionsReader(object):
         value2 
         """
         dimensions_list = self.reader_utils.get_dimensions()
-        self._LOGGER.info("Dimensions List: " + dimensions_list[0])
+        self._LOGGER.info("Dimensions List: " + str(type(dimensions_list[0])))
         if not dimensions_list:
             self._LOGGER.warning("Cannot read AWS dimensions from file. Defaulting to default dimensions.")
         self.dimensions = dimensions_list
