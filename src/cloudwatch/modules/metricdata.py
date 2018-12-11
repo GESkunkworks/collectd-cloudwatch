@@ -140,7 +140,7 @@ class MetricDataBuilder(object):
                     dimensions[dim] = str(metadata.get(dim[:1].lower() + dim[1:]))
                     self._LOGGER.info("Dimension: " + dim + " Dimensions value: " + str(metadata.get(dim[:1].lower() + dim[1:])))
                     self._LOGGER.info("Length: " + str(len(self.config.dimensions)))  
-                    self._LOGGER.info("Type: " + type(self.config.dimensions))
+                    self._LOGGER.info("Type: " + str(type(self.config.dimensions)))
             if self.config.push_asg:
                 dimensions["AutoScalingGroup"] = self._get_autoscaling_group()
             if self.config.push_constant:
