@@ -55,11 +55,12 @@ class ReaderUtils(object):
         config_list = self._load_config_as_list(self.path)
         dimensions_list = []
         for entry in config_list:
+            self._LOGGER.info("Entry Value1: " + str(entry))
             if entry[0] == self._COMMENT_CHARACTER or self._NONDIMENSIONS_PATTERN.match(entry):
-                self._LOGGER.info("Entry Value: " + str(entry))
+                self._LOGGER.info("Entry Value2: " + str(entry))
                 continue # skip empty and commented lines
             try:
-                self._LOGGER.info("Entry Value2: " + str(entry))
+                self._LOGGER.info("Entry Value3: " + str(entry))
                 dimensions_list.append(entry)
             except:
                 self._LOGGER.error("Cannot read configuration entry: " + str(entry))
