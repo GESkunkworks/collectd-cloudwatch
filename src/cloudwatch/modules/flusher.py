@@ -129,9 +129,11 @@ class Flusher(object):
         if self.enable_high_resolution_metrics:
             key = dimension_key + "-" + str(adjusted_time)
         if key in self.metric_map:
+            self._LOGGER.info("Key in metric map: " + str(key))
             nan_value_count = self._add_values_to_metrics(self.metric_map[key], value_list)
         else:
             if len(self.metric_map) < self.max_metrics_to_aggregate:
+                self._LOGGER.info("add metric to queue 1")
                 nan_value_count = self._add_metric_to_queue(value_list, adjusted_time, key)
             else:
                 if self.enable_high_resolution_metrics:
@@ -141,6 +143,7 @@ class Flusher(object):
                             state += str(dimension_metrics) + "[" + str(self.metric_map[dimension_metrics][0].statistics.sample_count) + "] "
                         self._LOGGER.info("[debug] flushing metrics " + state)
                     self._flush()
+                    self._LOGGER.info("add metric to queue 2")
                     nan_value_count = self._add_metric_to_queue(value_list, adjusted_time, key)
                 else:
                     self._LOGGER.warning("Batching queue overflow detected. Dropping metric.")
