@@ -121,6 +121,7 @@ class Flusher(object):
         Selects existing metric or adds a new metric to the metric_map. Then aggregates values from ValueList with the selected metric.
         If the size of metric_map is above the limit, new metric will not be added and the value_list will be dropped.
         """
+        self._LOGGER.info("Running Aggregate Metrics")
         nan_value_count = 0
         dimension_key = self._get_metric_key(value_list)
         adjusted_time = int(value_list.time)
