@@ -9,7 +9,7 @@ class ReaderUtils(object):
     _LOGGER = get_logger(__name__)
     _COMMENT_CHARACTER = '#'
     _AWS_PROFILE_PATTERN = re.compile("^\s*\[[\w]+\]\s*$")
-    _NONDIMENSIONS_PATTERN = re.compile("^\s*",re.MULTILINE)
+    _NONDIMENSIONS_PATTERN = re.compile("^\s")
     
     def __init__(self, path):
         self.path = path
