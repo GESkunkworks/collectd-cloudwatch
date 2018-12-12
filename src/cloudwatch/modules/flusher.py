@@ -121,7 +121,6 @@ class Flusher(object):
         Selects existing metric or adds a new metric to the metric_map. Then aggregates values from ValueList with the selected metric.
         If the size of metric_map is above the limit, new metric will not be added and the value_list will be dropped.
         """
-        self._LOGGER.info("Running Aggregate Metrics")
         nan_value_count = 0
         dimension_key = self._get_metric_key(value_list)
         adjusted_time = int(value_list.time)
@@ -130,11 +129,9 @@ class Flusher(object):
         if self.enable_high_resolution_metrics:
             key = dimension_key + "-" + str(adjusted_time)
         if key in self.metric_map:
-            self._LOGGER.info("Key in metric map: " + str(key))
             nan_value_count = self._add_values_to_metrics(self.metric_map[key], value_list)
         else:
             if len(self.metric_map) < self.max_metrics_to_aggregate:
-                self._LOGGER.info("add metric to queue 1")
                 nan_value_count = self._add_metric_to_queue(value_list, adjusted_time, key)
             else:
                 if self.enable_high_resolution_metrics:
@@ -144,7 +141,6 @@ class Flusher(object):
                             state += str(dimension_metrics) + "[" + str(self.metric_map[dimension_metrics][0].statistics.sample_count) + "] "
                         self._LOGGER.info("[debug] flushing metrics " + state)
                     self._flush()
-                    self._LOGGER.info("add metric to queue 2")
                     nan_value_count = self._add_metric_to_queue(value_list, adjusted_time, key)
                 else:
                     self._LOGGER.warning("Batching queue overflow detected. Dropping metric.")

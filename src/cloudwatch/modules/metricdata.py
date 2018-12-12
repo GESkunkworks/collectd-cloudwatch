@@ -128,7 +128,6 @@ class MetricDataBuilder(object):
         return dimensions
 
     def _build_metric_dimensions(self):
-        self._LOGGER.info("Running Build Metric Dimensions")
         dimensions = {}
         metadata = self._get_metadata()
         if self.config.dimensions:
@@ -139,9 +138,6 @@ class MetricDataBuilder(object):
                     dimensions[dim] = self._get_plugin_instance_dimension()
                 else:
                     dimensions[dim] = str(metadata.get(dim[:1].lower() + dim[1:]))
-                    self._LOGGER.info("Dimension: " + dim + " Dimensions value: " + str(metadata.get(dim[:1].lower() + dim[1:])))
-                    self._LOGGER.info("Length: " + str(len(self.config.dimensions)))
-                    self._LOGGER.info("Type: " + str(type(self.config.dimensions)))
             if self.config.push_asg:
                 dimensions["AutoScalingGroup"] = self._get_autoscaling_group()
             if self.config.push_constant:
@@ -151,8 +147,6 @@ class MetricDataBuilder(object):
                     "Host" : self._get_host_dimension(),
                     "PluginInstance" : self._get_plugin_instance_dimension(),
                     }
-            self._LOGGER.info("Dimension: Host Value: " + dimensions['Host'])
-            self._LOGGER.info("Dimension: PluginInstance Value: " + dimensions['PluginInstance'])
             if self.config.push_asg:
                 dimensions["AutoScalingGroup"] = self._get_autoscaling_group()
             if self.config.push_constant:

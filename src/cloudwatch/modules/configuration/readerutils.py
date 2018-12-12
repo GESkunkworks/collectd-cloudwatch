@@ -53,16 +53,12 @@ class ReaderUtils(object):
 
     def _find_dimensions(self):
         config_list = self._load_config_as_list(self.path)
-        i = 0
         dimensions_list = []
         for entry in config_list:
             if not entry or entry[0] == self._COMMENT_CHARACTER or self._NONDIMENSIONS_PATTERN.match(entry):
                 continue # skip empty and commented lines
             try:
-                self._LOGGER.info("Entry Value3: " + str(entry))
                 dimensions_list.append(entry)
-                self._LOGGER.info("Dimensions List Value: " + str(dimensions_list[i]))
-                i = i + 1
             except:
                 self._LOGGER.error("Cannot read configuration entry: " + str(entry))
                 raise ValueError("Invalid syntax for dimension entry '" + entry + "'.")

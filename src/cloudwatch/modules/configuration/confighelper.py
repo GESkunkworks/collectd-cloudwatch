@@ -131,7 +131,7 @@ class ConfigHelper(object):
         self.dimensions = self.dimensions_reader.dimensions
         if not self.dimensions:
             self.dimensions = None
-            self._LOGGER.info("Dimensions set to None: " + str(type(self.dimensions)))
+            self._LOGGER.info("Dimensions set to None")
         
     def _load_region(self):
         """
