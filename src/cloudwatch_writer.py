@@ -22,7 +22,7 @@ def aws_init():
     """
     try:
         config = ConfigHelper()
-        _LOGGER.info("Does Dimension Exist?: " + str(type(config.dimensions[0])))
+        _LOGGER.info("Does Dimension Exist?: " + str(config.dimensions[0]))
         flusher = Flusher(config_helper=config,  dataset_resolver=get_dataset_resolver())
         collectd.register_write(aws_write, data = flusher)
         _LOGGER.info('Initialization finished successfully.')
