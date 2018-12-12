@@ -32,7 +32,6 @@ class DimensionsReader(object):
         value 
         value2 
         """
-        dimensions_list = []
         dimensions_list = self.reader_utils.get_dimensions()
         self._LOGGER.info("Dimensions List: " + str(type(dimensions_list[0])))
         if not dimensions_list:

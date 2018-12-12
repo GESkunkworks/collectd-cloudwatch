@@ -382,8 +382,8 @@ class InteractiveConfigurator(object):
         try:
             with open(DEFAULT_DIMENSIONS_FILE, "w") as dimensions_file:
                 dimensions_file.write(
-                """#You can use all of the instance identity documents dimensions\n#Make sure that the first letter of the dimension is captilized and there are no spaces at the end of the dimension\n#For more information on dimensions that can be used:https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-identity-documents.html\n\n
-#Host\n#PluginInstance
+                """#You can use all of the instance identity documents dimensions\n#Make sure that the first letter of the dimension is captilized and there are no spaces at the end of the dimension\n#For more information on dimensions that can be used:https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-identity-documents.html
+                \n#Host\n#PluginInstance
                 """)
                 print(Color.green("Dimensions File written successfully."))
         except IOError as e:
