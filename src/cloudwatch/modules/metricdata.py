@@ -150,6 +150,8 @@ class MetricDataBuilder(object):
                     "Host" : self._get_host_dimension(),
                     "PluginInstance" : self._get_plugin_instance_dimension(),
                     }
+            self._LOGGER.info("Dimension: Host Value: " + dimensions['Host'])
+            self._LOGGER.info("Dimension: PluginInstance Value: " + dimensions['PluginInstance'])
             if self.config.push_asg:
                 dimensions["AutoScalingGroup"] = self._get_autoscaling_group()
             if self.config.push_constant:
