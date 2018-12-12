@@ -39,7 +39,7 @@ class ReaderUtils(object):
     def _find_value_by_key(self, key):
         config_list = self._load_config_as_list(self.path)
         for entry in config_list: 
-            if not entry or entry[0] == self._COMMENT_CHARACTER or self._AWS_PROFILE_PATTERN.match(entry):
+            if not entry or entry[0] == (self._COMMENT_CHARACTER or self._AWS_PROFILE_PATTERN.match(entry)):
                 continue  # skip empty and commented lines
             try: 
                 entry_key, entry_value = entry.split('=', 1)
@@ -59,7 +59,7 @@ class ReaderUtils(object):
                 self._LOGGER.info("Entry Value: " + str(entry))
                 continue # skip empty and commented lines
             try:
-                self._LOGGER.info("Entry Value: " + str(entry))
+                self._LOGGER.info("Entry Value2: " + str(entry))
                 dimensions_list.append(entry)
             except:
                 self._LOGGER.error("Cannot read configuration entry: " + str(entry))
