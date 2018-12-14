@@ -2,7 +2,6 @@ import awsutils as awsutils
 import plugininfo
 import datetime
 import json 
-import subprocess
 import urllib2
 from logger.logger import get_logger
 

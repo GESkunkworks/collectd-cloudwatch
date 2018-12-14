@@ -11,7 +11,7 @@ class DimensionsReader(object):
     dimension2
     
     Keyword arguments:
-    creds_path -- the path for the credentials file to be parsed (Required)
+    dimensions_path -- the path for the credentials file to be parsed (Required)
     """
 
     _LOGGER = get_logger(__name__)
