@@ -32,7 +32,7 @@ ROOT_UID = 0
 TEMP_DIRECTORY = gettempdir() + "/collectd-cloudwatch-plugin/"
 TIMESTAMP_FORMAT = "%Y-%m-%d_%H_%M"
 GITHUB_USER_NAME = "GESkunkworks"
-GITHUB_REPO_BRANCH = "feature/addDimensionFile"
+GITHUB_REPO_BRANCH = "master"
 TAR_FILE = GITHUB_USER_NAME + "-collectd-cloudwatch.tar.gz"
 DOWNLOAD_PLUGIN_DIR = GITHUB_USER_NAME + "-collectd-cloudwatch*"
 DEFAULT_PLUGIN_CONFIGURATION_DIR = "/opt/collectd-plugins/cloudwatch/config"
@@ -776,7 +776,7 @@ def main():
     COLLECTD_INFO = get_collectd_info()
     STOP_COLLECTD_CMD = CMD("pkill collectd", "Stopping collectd process")
     START_COLLECTD_CMD = CMD(COLLECTD_INFO.exec_path, "Starting collectd process")
-    DOWNLOAD_PLUGIN_CMD = CMD("curl -sL https://github.com/GESkunkworks/collectd-cloudwatch/tarball/feature/addDimensionFile > " + TAR_FILE, "Downloading plugin")
+    DOWNLOAD_PLUGIN_CMD = CMD("curl -sL https://github.com/" > + GITHUB_USER_NAME + "/collectd-cloudwatch/tarball/" + GITHUB_REPO_BRANCH + " > " TAR_FILE, "Downloading plugin")
     UNTAR_PLUGIN_CMD = CMD("tar zxf " + TAR_FILE, "Extracting plugin")
     COPY_CMD = "\cp -rf {source} {target}"
     COPY_PLUGIN_CMD = CMD(COPY_CMD.format(source=NEW_PLUGIN_FILES, target=CollectdInfo.PLUGINS_DIR), "Moving to collectd plugins directory")
