@@ -90,7 +90,7 @@ After setup.py is ran there will be a dimensions file located at the dimensions_
 
 For example, the key in the identity document the key `imageId` would become `ImageId` in the dimensions file.
 
-If you update a dimension in the dimensions file collectd will need to be restarted.
+If you update a dimension in the dimensions file collectd will need to be restarted. Setup.py must be ran in interactive mode.
 
 ### AWS account configuration
 The account configuration is optional for EC2 instances with IAM Role attached. By default the AWS account configuration file is expected to be stored in: `/opt/collectd-plugins/cloudwatch/config/.aws/credentials`.
